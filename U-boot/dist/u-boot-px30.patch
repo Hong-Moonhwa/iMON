@@ -1,0 +1,46 @@
+diff -urN a/arch/arm/dts/px30-evb.dts b/arch/arm/dts/px30-evb.dts
+--- a/arch/arm/dts/px30-evb.dts	2023-09-15 19:58:49.379075505 +0900
++++ b/arch/arm/dts/px30-evb.dts	2023-09-15 20:02:15.472072982 +0900
+@@ -406,7 +406,7 @@
+ &emmc {
+ 	bus-width = <8>;
+ 	cap-mmc-highspeed;
+-	mmc-hs200-1_8v;
++	mmc-ddr-1_8v;
+ 	supports-emmc;
+ 	disable-wp;
+ 	non-removable;
+diff -urN a/configs/px30_defconfig b/configs/px30_defconfig
+--- a/configs/px30_defconfig	2023-09-15 19:58:49.443074619 +0900
++++ b/configs/px30_defconfig	2023-09-15 20:03:17.495120208 +0900
+@@ -41,6 +41,7 @@
+ # CONFIG_CMD_FLASH is not set
+ # CONFIG_CMD_FPGA is not set
+ CONFIG_CMD_GPT=y
++CONFIG_CMD_GPIO=y
+ # CONFIG_CMD_LOADB is not set
+ # CONFIG_CMD_LOADS is not set
+ CONFIG_CMD_BOOT_ANDROID=y
+diff -urN a/make.sh b/make.sh
+--- a/make.sh	2023-09-15 19:58:49.507073732 +0900
++++ b/make.sh	2023-09-15 20:03:56.170516711 +0900
+@@ -11,7 +11,7 @@
+ CMD_ARGS=$1
+ 
+ ########################################### User can modify #############################################
+-RKBIN_TOOLS=../rkbin/tools
++RKBIN_TOOLS=$ETC_DIR/rockchip/rkbin/tools
+ CROSS_COMPILE_ARM32=../prebuilts/gcc/linux-x86/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+ CROSS_COMPILE_ARM64=../prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
+ ########################################### User not touch #############################################
+diff -urN a/scripts/uboot.sh b/scripts/uboot.sh
+--- a/scripts/uboot.sh	2023-09-15 19:58:49.507073732 +0900
++++ b/scripts/uboot.sh	2023-09-15 20:04:33.129933824 +0900
+@@ -50,6 +50,6 @@
+ 	exit 1
+ fi
+ 
+-../rkbin/tools/loaderimage --pack --uboot u-boot.bin uboot.img ${LOAD_ADDR} ${SIZE}
++$ETC_DIR/rockchip/rkbin/tools/loaderimage --pack --uboot u-boot.bin uboot.img ${LOAD_ADDR} ${SIZE}
+ echo "pack uboot okay! Input: u-boot.bin"
+ echo
