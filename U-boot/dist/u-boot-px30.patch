@@ -1,6 +1,6 @@
 diff -urN a/arch/arm/dts/px30-evb.dts b/arch/arm/dts/px30-evb.dts
---- a/arch/arm/dts/px30-evb.dts	2023-09-15 19:58:49.379075505 +0900
-+++ b/arch/arm/dts/px30-evb.dts	2023-09-15 20:02:15.472072982 +0900
+--- a/arch/arm/dts/px30-evb.dts	2023-09-20 19:58:32.504450853 +0900
++++ b/arch/arm/dts/px30-evb.dts	2023-09-20 19:58:55.416193991 +0900
 @@ -406,7 +406,7 @@
  &emmc {
  	bus-width = <8>;
@@ -11,8 +11,8 @@ diff -urN a/arch/arm/dts/px30-evb.dts b/arch/arm/dts/px30-evb.dts
  	disable-wp;
  	non-removable;
 diff -urN a/configs/px30_defconfig b/configs/px30_defconfig
---- a/configs/px30_defconfig	2023-09-15 19:58:49.443074619 +0900
-+++ b/configs/px30_defconfig	2023-09-15 20:03:17.495120208 +0900
+--- a/configs/px30_defconfig	2023-09-20 19:58:32.568450136 +0900
++++ b/configs/px30_defconfig	2023-09-20 19:58:55.416193991 +0900
 @@ -41,6 +41,7 @@
  # CONFIG_CMD_FLASH is not set
  # CONFIG_CMD_FPGA is not set
@@ -21,9 +21,33 @@ diff -urN a/configs/px30_defconfig b/configs/px30_defconfig
  # CONFIG_CMD_LOADB is not set
  # CONFIG_CMD_LOADS is not set
  CONFIG_CMD_BOOT_ANDROID=y
+diff -urN a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
+--- a/drivers/usb/host/ehci-hcd.c	2023-09-20 19:58:32.600449778 +0900
++++ b/drivers/usb/host/ehci-hcd.c	2023-09-20 19:59:42.755664000 +0900
+@@ -1683,7 +1683,7 @@
+ 
+ 	ret = generic_phy_get_by_index(dev, index, phy);
+ 	if (ret) {
+-		if (ret != -ENOENT) {
++		if (ret != -ENOENT && ret != -ENODEV) {
+ 			dev_err(dev, "failed to get usb phy\n");
+ 			return ret;
+ 		}
+diff -urN a/drivers/usb/host/ohci-generic.c b/drivers/usb/host/ohci-generic.c
+--- a/drivers/usb/host/ohci-generic.c	2023-09-20 19:58:32.600449778 +0900
++++ b/drivers/usb/host/ohci-generic.c	2023-09-20 20:00:24.355199015 +0900
+@@ -33,7 +33,7 @@
+ 
+ 	ret = generic_phy_get_by_index(dev, index, &priv->phy);
+ 	if (ret) {
+-		if (ret != -ENOENT) {
++		if (ret != -ENOENT && ret != -ENODEV) {
+ 			dev_err(dev, "failed to get usb phy\n");
+ 			return ret;
+ 		}
 diff -urN a/make.sh b/make.sh
---- a/make.sh	2023-09-15 19:58:49.507073732 +0900
-+++ b/make.sh	2023-09-15 20:03:56.170516711 +0900
+--- a/make.sh	2023-09-20 19:58:32.632449418 +0900
++++ b/make.sh	2023-09-20 19:58:55.416193991 +0900
 @@ -11,7 +11,7 @@
  CMD_ARGS=$1
  
@@ -34,8 +58,8 @@ diff -urN a/make.sh b/make.sh
  CROSS_COMPILE_ARM64=../prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
  ########################################### User not touch #############################################
 diff -urN a/scripts/uboot.sh b/scripts/uboot.sh
---- a/scripts/uboot.sh	2023-09-15 19:58:49.507073732 +0900
-+++ b/scripts/uboot.sh	2023-09-15 20:04:33.129933824 +0900
+--- a/scripts/uboot.sh	2023-09-20 19:58:32.632449418 +0900
++++ b/scripts/uboot.sh	2023-09-20 19:58:55.416193991 +0900
 @@ -50,6 +50,6 @@
  	exit 1
  fi
