@@ -2,7 +2,7 @@
 
 set -e
 
-export AARCH64=true
+export AARCH64=yes
 
 export ROOT_DIR=$PWD
 export TOOLCHAIN_DIR=$ROOT_DIR/Toolchain
@@ -16,7 +16,7 @@ export ETC_DIR=$ROOT_DIR/Etc
 
 cd $TOOLCHAIN_DIR && ./make.sh
 
-if [ $AARCH64 = true ]; then
+if [ $AARCH64 = "yes" ]; then
 	export CROSS_COMPILE=$TOOLCHAIN_DIR/toolchain/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
 	export CC=$TOOLCHAIN_DIR/toolchain/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-gcc
 	export CXX=$TOOLCHAIN_DIR/toolchain/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-g++
