@@ -1,0 +1,4 @@
+[submodule "App"]
+	path = App
+	url = git@github.com:deois/ddc_stm_nxp.git
+	branch = 2032104/iMON_ES
