@@ -1,6 +1,6 @@
 diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi
---- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-20 11:50:19.183011335 +0900
-+++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-20 11:51:54.914116746 +0900
+--- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-22 13:21:51.919907947 +0900
++++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-22 13:23:39.751072170 +0900
 @@ -93,11 +93,11 @@
  		rockchip,android-charge-on = <1>;
  		rockchip,uboot-low-power-voltage = <3500>;
@@ -86,15 +86,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  };
  
  &i2c0 {
-@@ -256,6 +252,7 @@
- 		pinctrl-1 = <&soc_slppin_slp>, <&rk817_slppin_slp>;
- 		pinctrl-2 = <&soc_slppin_gpio>, <&rk817_slppin_pwrdn>;
- 		pinctrl-3 = <&soc_slppin_rst>, <&rk817_slppin_rst>;
-+		//pinctrl-4 = <&imon_gpio>;
- 		rockchip,system-power-controller;
- 		wakeup-source;
- 		#clock-cells = <1>;
-@@ -275,7 +272,7 @@
+@@ -275,7 +271,7 @@
  		vcc9-supply = <&vcc5v0_sys>;
  
  		pwrkey {
@@ -103,7 +95,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  		};
  
  		pinctrl_rk8xx: pinctrl_rk8xx {
-@@ -504,13 +501,13 @@
+@@ -504,7 +500,7 @@
  			pinctrl-0 = <&i2s1_2ch_mclk>;
  			hp-volume = <20>;
  			spk-volume = <3>;
@@ -112,14 +104,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  		};
  	};
  };
- 
- &i2c1 {
--	status = "okay";
-+	status = "disabled";
- 
- 	sensor@f {
- 		status = "okay";
-@@ -545,7 +542,7 @@
+@@ -545,7 +541,7 @@
  };
  
  &i2c2 {
@@ -128,7 +113,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  	clock-frequency = <100000>;
  
-@@ -576,7 +573,7 @@
+@@ -576,7 +572,7 @@
  };
  
  &i2s1_2ch {
@@ -137,7 +122,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  	#sound-dai-cells = <0>;
  };
  
-@@ -591,11 +588,11 @@
+@@ -591,11 +587,11 @@
  };
  
  &isp_mmu {
@@ -151,7 +136,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  	ports {
  		#address-cells = <1>;
-@@ -627,7 +624,7 @@
+@@ -627,7 +623,7 @@
  };
  
  &nandc0 {
@@ -160,7 +145,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  };
  
  &pinctrl {
-@@ -640,7 +637,30 @@
+@@ -640,7 +636,30 @@
  	pmic {
  		pmic_int: pmic_int {
  			rockchip,pins =
@@ -192,7 +177,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  		};
  
  		soc_slppin_gpio: soc_slppin_gpio {
-@@ -674,15 +694,15 @@
+@@ -674,15 +693,15 @@
  };
  
  &pwm1 {
@@ -211,7 +196,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  	port {
  		#address-cells = <1>;
-@@ -696,12 +716,12 @@
+@@ -696,12 +715,12 @@
  };
  
  &rockchip_suspend {
@@ -226,7 +211,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  	vref-supply = <&vcc1v8_soc>;
  };
  
-@@ -720,7 +740,7 @@
+@@ -720,7 +739,7 @@
  	sd-uhs-sdr104;
  	vqmmc-supply = <&vccio_sd>;
  	vmmc-supply = <&vcc_sd>;
@@ -235,7 +220,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  };
  
  &sdio {
-@@ -740,12 +760,44 @@
+@@ -740,13 +759,45 @@
  	pinctrl-names = "gpio", "otpout";
  	pinctrl-0 = <&tsadc_otp_pin>;
  	pinctrl-1 = <&tsadc_otp_out>;
@@ -252,6 +237,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  &uart1 {
 -	pinctrl-names = "default";
 -	pinctrl-0 = <&uart1_xfer &uart1_cts>;
+-	status = "okay";
 +    pinctrl-names = "default";
 +    pinctrl-0 = <&uart1_xfer>;
 +    status = "okay";
@@ -280,5 +266,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
 +};
 +
 +&spi0 {
- 	status = "okay";
++	status = "disabled";
  };
+ 
+ &u2phy {
