@@ -1,6 +1,6 @@
 diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi
---- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-22 13:21:51.919907947 +0900
-+++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-22 13:23:39.751072170 +0900
+--- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-25 11:08:17.576862016 +0900
++++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-25 11:08:35.816683595 +0900
 @@ -93,11 +93,11 @@
  		rockchip,android-charge-on = <1>;
  		rockchip,uboot-low-power-voltage = <3500>;
@@ -270,3 +270,66 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  };
  
  &u2phy {
+diff -urN a/arch/arm64/boot/dts/rockchip/px30.dtsi b/arch/arm64/boot/dts/rockchip/px30.dtsi
+--- a/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-09-25 11:08:17.580861976 +0900
++++ b/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-09-25 11:12:25.002249082 +0900
+@@ -675,8 +675,7 @@
+ 		clocks = <&pmucru SCLK_UART0_PMU>, <&pmucru PCLK_UART0_PMU>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac 0>, <&dmac 1>;
+-		/*You can add it to enable dma*/
+-		/*dma-names = "tx", "rx";*/
++		dma-names = "tx", "rx";
+ 		reg-shift = <2>;
+ 		reg-io-width = <4>;
+ 		pinctrl-names = "default";
+@@ -879,8 +878,7 @@
+ 		clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac 2>, <&dmac 3>;
+-		/*You can add it to enable dma*/
+-		/*dma-names = "tx", "rx";*/
++		dma-names = "tx", "rx";
+ 		reg-shift = <2>;
+ 		reg-io-width = <4>;
+ 		pinctrl-names = "default";
+@@ -895,8 +893,7 @@
+ 		clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac 4>, <&dmac 5>;
+-		/*You can add it to enable dma*/
+-		/*dma-names = "tx", "rx";*/
++		dma-names = "tx", "rx";
+ 		reg-shift = <2>;
+ 		reg-io-width = <4>;
+ 		pinctrl-names = "default";
+@@ -911,8 +908,7 @@
+ 		clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac 6>, <&dmac 7>;
+-		/*You can add it to enable dma*/
+-		/*dma-names = "tx", "rx";*/
++		dma-names = "tx", "rx";
+ 		reg-shift = <2>;
+ 		reg-io-width = <4>;
+ 		pinctrl-names = "default";
+@@ -927,8 +923,7 @@
+ 		clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac 8>, <&dmac 9>;
+-		/*You can add it to enable dma*/
+-		/*dma-names = "tx", "rx";*/
++		dma-names = "tx", "rx";
+ 		reg-shift = <2>;
+ 		reg-io-width = <4>;
+ 		pinctrl-names = "default";
+@@ -943,8 +938,7 @@
+ 		clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac 10>, <&dmac 11>;
+-		/*You can add it to enable dma*/
+-		/*dma-names = "tx", "rx";*/
++		dma-names = "tx", "rx";
+ 		reg-shift = <2>;
+ 		reg-io-width = <4>;
+ 		pinctrl-names = "default";
