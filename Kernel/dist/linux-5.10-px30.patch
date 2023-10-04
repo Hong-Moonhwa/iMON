@@ -1,6 +1,6 @@
 diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi
---- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-25 11:08:17.576862016 +0900
-+++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-09-25 11:08:35.816683595 +0900
+--- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-10-04 15:13:52.573369065 +0900
++++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-10-04 15:19:34.865452474 +0900
 @@ -93,11 +93,11 @@
  		rockchip,android-charge-on = <1>;
  		rockchip,uboot-low-power-voltage = <3500>;
@@ -95,7 +95,24 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  		};
  
  		pinctrl_rk8xx: pinctrl_rk8xx {
-@@ -504,7 +500,7 @@
+@@ -421,6 +417,8 @@
+ 			};
+ 
+ 			vcc_sd: LDO_REG6 {
++				regulator-always-on;
++				regulator-boot-on;
+ 				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 
+@@ -490,6 +488,7 @@
+ 			};
+ 
+ 			vcc3v3_lcd: SWITCH_REG1 {
++				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-name = "vcc3v3_lcd";
+ 			};
+@@ -504,7 +503,7 @@
  			pinctrl-0 = <&i2s1_2ch_mclk>;
  			hp-volume = <20>;
  			spk-volume = <3>;
@@ -104,7 +121,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  		};
  	};
  };
-@@ -545,7 +541,7 @@
+@@ -545,7 +544,7 @@
  };
  
  &i2c2 {
@@ -113,7 +130,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  	clock-frequency = <100000>;
  
-@@ -576,7 +572,7 @@
+@@ -576,7 +575,7 @@
  };
  
  &i2s1_2ch {
@@ -122,7 +139,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  	#sound-dai-cells = <0>;
  };
  
-@@ -591,11 +587,11 @@
+@@ -591,11 +590,11 @@
  };
  
  &isp_mmu {
@@ -136,7 +153,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  	ports {
  		#address-cells = <1>;
-@@ -627,7 +623,7 @@
+@@ -627,7 +626,7 @@
  };
  
  &nandc0 {
@@ -145,7 +162,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  };
  
  &pinctrl {
-@@ -640,7 +636,30 @@
+@@ -640,7 +639,30 @@
  	pmic {
  		pmic_int: pmic_int {
  			rockchip,pins =
@@ -156,28 +173,28 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
 +				<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>,
 +				<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_none>,
 +				// SW1
-+				<3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC2 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC3 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC4 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC5 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PC7 RK_FUNC_GPIO &pcfg_pull_up>,
++				<3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC1 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC3 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>,
 +				// SW2
-+				<3 RK_PD0 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PD2 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>,
++				<3 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_none>,
 +				// SW3
-+				<1 RK_PD6 RK_FUNC_GPIO &pcfg_pull_up>,
-+				<1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_up>,
++				<1 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>,
++				<1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_none>,
 +				// LED
 +				<1 RK_PB4 RK_FUNC_GPIO  &pcfg_pull_up>;
  		};
  
  		soc_slppin_gpio: soc_slppin_gpio {
-@@ -674,15 +693,15 @@
+@@ -674,15 +696,15 @@
  };
  
  &pwm1 {
@@ -196,7 +213,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  	port {
  		#address-cells = <1>;
-@@ -696,12 +715,12 @@
+@@ -696,12 +718,12 @@
  };
  
  &rockchip_suspend {
@@ -211,7 +228,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  	vref-supply = <&vcc1v8_soc>;
  };
  
-@@ -720,7 +739,7 @@
+@@ -720,7 +742,7 @@
  	sd-uhs-sdr104;
  	vqmmc-supply = <&vccio_sd>;
  	vmmc-supply = <&vcc_sd>;
@@ -220,7 +237,7 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  };
  
  &sdio {
-@@ -740,13 +759,45 @@
+@@ -740,13 +762,45 @@
  	pinctrl-names = "gpio", "otpout";
  	pinctrl-0 = <&tsadc_otp_pin>;
  	pinctrl-1 = <&tsadc_otp_out>;
@@ -271,8 +288,8 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boo
  
  &u2phy {
 diff -urN a/arch/arm64/boot/dts/rockchip/px30.dtsi b/arch/arm64/boot/dts/rockchip/px30.dtsi
---- a/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-09-25 11:08:17.580861976 +0900
-+++ b/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-09-25 11:12:25.002249082 +0900
+--- a/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-10-04 15:13:52.577369074 +0900
++++ b/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-10-04 15:18:43.057525521 +0900
 @@ -675,8 +675,7 @@
  		clocks = <&pmucru SCLK_UART0_PMU>, <&pmucru PCLK_UART0_PMU>;
  		clock-names = "baudclk", "apb_pclk";
