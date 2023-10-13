@@ -4,12 +4,14 @@ if [ ! -d "json-c" ]; then
 	tar xf dist/json-c.tgz -C ./
 fi
 
-if [ ! -d "cJSON" ]; then
-	tar xf dist/cJSON.tgz -C ./
-fi
+if [ $RS232_MQ = "yes" ]; then
+	if [ ! -d "cJSON" ]; then
+		tar xf dist/cJSON.tgz -C ./
+	fi
 
-if [ ! -d "coreJSON" ]; then
-	tar xf dist/coreJSON.tgz -C ./
+	if [ ! -d "coreJSON" ]; then
+		tar xf dist/coreJSON.tgz -C ./
+	fi
 fi
 
 if [ "$#" = 0 ]; then
@@ -24,7 +26,7 @@ fi
 
 if [ $RNDIS_MQ = "yes" ]; then
 	if [ ! -d "aws-iot" ]; then
-		git clone -b v1.24.3 --recursive https://github.com/aws/aws-iot-device-sdk-cpp-v2.git aws-iot
+		git clone -b v1.30.0 --recursive https://github.com/aws/aws-iot-device-sdk-cpp-v2.git aws-iot
 		cd aws-iot
 		git submodule update --init --recursive
 		cd ..
@@ -36,21 +38,21 @@ if [ $RNDIS_MQ = "yes" ]; then
 		if [ ! -d "build" ]; then
 			mkdir build
 			cd build
-			cmake -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=arm -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$OPENSOURCE_DIR/aws-iot/install -DCMAKE_BUILD_TYPE=Debug ..
+			cmake -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$OPENSOURCE_DIR/aws-iot/install -DCMAKE_BUILD_TYPE=Debug ..
 			cmake --build . --target install
 			cd ..
 
 			cd samples/fleet_provisioning/fleet_provisioning
 			mkdir build
 			cd build
-			cmake -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=arm -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$OPENSOURCE_DIR/aws-iot/install -DCMAKE_BUILD_TYPE=Debug ..
+			cmake -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$OPENSOURCE_DIR/aws-iot/install -DCMAKE_BUILD_TYPE=Debug ..
 			cmake --build . --target install
 			cd ../../../../
 
 			cd samples/pub_sub/basic_pub_sub
 			mkdir build
 			cd build
-			cmake -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=arm -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$OPENSOURCE_DIR/aws-iot/install -DCMAKE_BUILD_TYPE=Debug ..
+			cmake -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$OPENSOURCE_DIR/aws-iot/install -DCMAKE_BUILD_TYPE=Debug ..
 			cmake --build . --config Debug
 			cp -f basic-pub-sub $OPENSOURCE_DIR/aws-iot/install/bin
 			cd ../../../../

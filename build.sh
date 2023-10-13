@@ -2,6 +2,7 @@
 
 set -e
 
+export PROJECT=iMON
 export AARCH64=yes
 
 export ROOT_DIR=$PWD
@@ -28,8 +29,8 @@ else
 	export STRIP=$TOOLCHAIN_DIR/toolchain/arm/gcc-arm-10.3-2021.07-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-strip
 fi
 
-export RS232_MQ=yes
-export RNDIS_MQ=no
+export RS232_MQ=no
+export RNDIS_MQ=yes
 
 if [ $# = 0 ]; then
 	cd $OPENSOURCE_DIR && ./make.sh
