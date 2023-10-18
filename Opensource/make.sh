@@ -25,6 +25,10 @@ else
 fi
 
 if [ $RNDIS_MQ = "yes" ]; then
+	if [ ! -d "boost" ]; then
+		tar xf dist/boost_1_83_0.tgz -C ./ --transform 's/boost_1_83_0/boost/'
+	fi
+
 	if [ ! -d "aws-iot" ]; then
 		git clone -b v1.30.0 --recursive https://github.com/aws/aws-iot-device-sdk-cpp-v2.git aws-iot
 		cd aws-iot
