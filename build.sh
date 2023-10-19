@@ -33,6 +33,12 @@ export RS232_MQ=no
 export RNDIS_MQ=yes
 
 if [ $# = 0 ]; then
+	if [ ! -d "$ROOTFS_DIR/rootfs" ]; then
+		cd $ROOTFS_DIR
+    	tar xf dist/rootfs.tgz -C ./
+		cd -
+	fi
+
 	cd $OPENSOURCE_DIR && ./make.sh
 	cd $APP_DIR && ./make.sh
 else
