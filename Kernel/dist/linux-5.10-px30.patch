@@ -1,295 +1,6 @@
-diff -urN a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi
---- a/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-10-04 15:13:52.573369065 +0900
-+++ b/arch/arm64/boot/dts/rockchip/px30-evb-ddr3-v10.dtsi	2023-10-04 15:19:34.865452474 +0900
-@@ -93,11 +93,11 @@
- 		rockchip,android-charge-on = <1>;
- 		rockchip,uboot-low-power-voltage = <3500>;
- 		rockchip,screen-on-voltage = <3600>;
--		status = "okay";
-+		status = "disabled";
- 	};
- 
- 	rk809_sound: rk809-sound {
--		status = "okay";
-+		status = "disabled";
- 		compatible = "rockchip,multicodecs-card";
- 		rockchip,card-name = "rockchip-rk809";
- 		hp-det-gpio = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
-@@ -135,7 +135,7 @@
- 	};
- 
- 	test-power {
--		status = "okay";
-+		status = "disabled";
- 	};
- 
- 	vcc_phy: vcc-phy-regulator {
-@@ -159,7 +159,7 @@
- 		wifi_chip_type = "AP6210";
- 		WIFI,host_wake_irq = <&gpio0 RK_PB2 GPIO_ACTIVE_HIGH>;
- 		WIFI,poweren_gpio = <&gpio0 RK_PA2 GPIO_ACTIVE_HIGH>;
--		status = "okay";
-+		status = "disabled";
- 	};
- 
- 	wireless_bluetooth: wireless-bluetooth {
-@@ -173,16 +173,16 @@
- 		BT,reset_gpio = <&gpio0 RK_PC1 GPIO_ACTIVE_HIGH>;
- 		BT,wake_gpio = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
- 		BT,wake_host_irq = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
--		status = "okay";
-+		status = "disabled";
- 	};
- };
- 
- &display_subsystem {
--	status = "okay";
-+	status = "disabled";
- };
- 
- &dsi_in_vopb {
--	status = "okay";
-+	status = "disabled";
- };
- 
- &dsi_in_vopl {
-@@ -191,7 +191,7 @@
- 
- &route_dsi {
- 	connect = <&vopb_out_dsi>;
--	status = "okay";
-+	status = "disabled";
- };
- 
- &bus_apll {
-@@ -226,20 +226,16 @@
- 
- &gmac {
- 	phy-supply = <&vcc_phy>;
--	clock_in_out = "input";
--	assigned-clocks = <&cru SCLK_GMAC>;
--	assigned-clock-parents = <&gmac_clkin>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&rmii_pins &mac_refclk>;
-+	clock_in_out = "output";
- 	snps,reset-gpio = <&gpio2 13 GPIO_ACTIVE_LOW>;
- 	snps,reset-active-low;
- 	snps,reset-delays-us = <0 50000 50000>;
--	status = "okay";
-+	status = "okay";	
- };
- 
- &gpu {
- 	mali-supply = <&vdd_logic>;
--	status = "okay";
-+	status = "disabled";
- };
- 
- &i2c0 {
-@@ -275,7 +271,7 @@
- 		vcc9-supply = <&vcc5v0_sys>;
- 
- 		pwrkey {
--			status = "okay";
-+			status = "disabled";
- 		};
- 
- 		pinctrl_rk8xx: pinctrl_rk8xx {
-@@ -421,6 +417,8 @@
- 			};
- 
- 			vcc_sd: LDO_REG6 {
-+				regulator-always-on;
-+				regulator-boot-on;
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
- 
-@@ -490,6 +488,7 @@
- 			};
- 
- 			vcc3v3_lcd: SWITCH_REG1 {
-+				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-name = "vcc3v3_lcd";
- 			};
-@@ -504,7 +503,7 @@
- 			pinctrl-0 = <&i2s1_2ch_mclk>;
- 			hp-volume = <20>;
- 			spk-volume = <3>;
--			status = "okay";
-+			status = "disabled";
- 		};
- 	};
- };
-@@ -545,7 +544,7 @@
- };
- 
- &i2c2 {
--	status = "okay";
-+	status = "disabled";
- 
- 	clock-frequency = <100000>;
- 
-@@ -576,7 +575,7 @@
- };
- 
- &i2s1_2ch {
--	status = "okay";
-+	status = "disabled";
- 	#sound-dai-cells = <0>;
- };
- 
-@@ -591,11 +590,11 @@
- };
- 
- &isp_mmu {
--	status = "okay";
-+	status = "disabled";
- };
- 
- &mipi_dphy_rx0 {
--	status = "okay";
-+	status = "disabled";
- 
- 	ports {
- 		#address-cells = <1>;
-@@ -627,7 +626,7 @@
- };
- 
- &nandc0 {
--	status = "okay";
-+	status = "disabled";
- };
- 
- &pinctrl {
-@@ -640,7 +639,30 @@
- 	pmic {
- 		pmic_int: pmic_int {
- 			rockchip,pins =
--				<0 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>;
-+				<0 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>,
-+				// DOUT
-+				<1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_none>,
-+				// SW1
-+				<3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC1 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC3 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>,
-+				// SW2
-+				<3 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_none>,
-+				// SW3
-+				<1 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>,
-+				<1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_none>,
-+				// LED
-+				<1 RK_PB4 RK_FUNC_GPIO  &pcfg_pull_up>;
- 		};
- 
- 		soc_slppin_gpio: soc_slppin_gpio {
-@@ -674,15 +696,15 @@
- };
- 
- &pwm1 {
--	status = "okay";
-+	status = "disabled";
- };
- 
- &rk_rga {
--	status = "okay";
-+	status = "disabled";
- };
- 
- &rkisp1 {
--	status = "okay";
-+	status = "disabled";
- 
- 	port {
- 		#address-cells = <1>;
-@@ -696,12 +718,12 @@
- };
- 
- &rockchip_suspend {
--	status = "okay";
-+	status = "disabled";
- 	rockchip,sleep-debug-en = <1>;
- };
- 
- &saradc {
--	status = "okay";
-+	status = "disabled";
- 	vref-supply = <&vcc1v8_soc>;
- };
- 
-@@ -720,7 +742,7 @@
- 	sd-uhs-sdr104;
- 	vqmmc-supply = <&vccio_sd>;
- 	vmmc-supply = <&vcc_sd>;
--	status = "okay";
-+	status = "disabled";
- };
- 
- &sdio {
-@@ -740,13 +762,45 @@
- 	pinctrl-names = "gpio", "otpout";
- 	pinctrl-0 = <&tsadc_otp_pin>;
- 	pinctrl-1 = <&tsadc_otp_out>;
--	status = "okay";
-+	status = "disabled";
-+};
-+
-+&uart0 {
-+    pinctrl-names = "default";
-+    pinctrl-0 = <&uart0_xfer>;
-+    status = "okay";
- };
- 
- &uart1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&uart1_xfer &uart1_cts>;
--	status = "okay";
-+    pinctrl-names = "default";
-+    pinctrl-0 = <&uart1_xfer>;
-+    status = "okay";
-+};
-+
-+&uart3 {
-+    pinctrl-names = "default";
-+    pinctrl-0 = <&uart3m0_xfer>;
-+    status = "okay";
-+};
-+
-+&uart4 {
-+    pinctrl-names = "default";
-+    pinctrl-0 = <&uart4_xfer>;
-+    status = "okay";
-+};
-+
-+&uart5 {
-+    pinctrl-names = "default";
-+	pinctrl-0 = <&uart5_xfer>;
-+    status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "disabled";
-+};
-+
-+&spi0 {
-+	status = "disabled";
- };
- 
- &u2phy {
 diff -urN a/arch/arm64/boot/dts/rockchip/px30.dtsi b/arch/arm64/boot/dts/rockchip/px30.dtsi
---- a/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-10-04 15:13:52.577369074 +0900
-+++ b/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-10-04 15:18:43.057525521 +0900
+--- a/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-11-22 10:44:14.080893582 +0900
++++ b/arch/arm64/boot/dts/rockchip/px30.dtsi	2023-11-22 11:11:30.113193349 +0900
 @@ -675,8 +675,7 @@
  		clocks = <&pmucru SCLK_UART0_PMU>, <&pmucru PCLK_UART0_PMU>;
  		clock-names = "baudclk", "apb_pclk";
@@ -350,3 +61,384 @@ diff -urN a/arch/arm64/boot/dts/rockchip/px30.dtsi b/arch/arm64/boot/dts/rockchi
  		reg-shift = <2>;
  		reg-io-width = <4>;
  		pinctrl-names = "default";
+diff -urN a/arch/arm64/boot/dts/rockchip/rk3358-evb-ddr3.dtsi b/arch/arm64/boot/dts/rockchip/rk3358-evb-ddr3.dtsi
+--- a/arch/arm64/boot/dts/rockchip/rk3358-evb-ddr3.dtsi	2023-11-22 10:44:14.076893626 +0900
++++ b/arch/arm64/boot/dts/rockchip/rk3358-evb-ddr3.dtsi	2023-11-22 11:33:09.645255902 +0900
+@@ -94,10 +94,11 @@
+ 		rockchip,android-charge-on = <1>;
+ 		rockchip,uboot-low-power-voltage = <3500>;
+ 		rockchip,screen-on-voltage = <3600>;
+-		status = "okay";
++		status = "disabled";
+ 	};
+ 
+ 	rk809-sound {
++		status = "disabled";
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,format = "i2s";
+ 		simple-audio-card,name = "rockchip,rk809-codec";
+@@ -119,6 +120,7 @@
+ 	};
+ 
+ 	rk_headset: rk-headset {
++		status = "disabled";
+ 		compatible = "rockchip_headset";
+ 		headset_gpio = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
+ 		pinctrl-names = "default";
+@@ -174,7 +176,7 @@
+ 		compatible = "wlan-platdata";
+ 		wifi_chip_type = "AP6210";
+ 		WIFI,host_wake_irq = <&gpio3 RK_PB0 GPIO_ACTIVE_HIGH>;
+-		status = "okay";
++		status = "disabled";
+ 	};
+ 
+ 	wireless-bluetooth {
+@@ -188,16 +190,16 @@
+ 		BT,reset_gpio = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
+ 		BT,wake_gpio = <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
+ 		BT,wake_host_irq = <&gpio3 RK_PB3 GPIO_ACTIVE_HIGH>;
+-		status = "okay";
++		status = "disabled";
+ 	};
+ };
+ 
+ &display_subsystem {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &dsi {
+-	status = "okay";
++	status = "disabled";
+ 
+ 	panel@0 {
+ 		compatible = "sitronix,st7703", "simple-panel-dsi";
+@@ -481,7 +483,7 @@
+ };
+ 
+ &dsi_in_vopb {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &dsi_in_vopl {
+@@ -490,7 +492,7 @@
+ 
+ &route_dsi {
+ 	connect = <&vopb_out_dsi>;
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &cpu0 {
+@@ -528,7 +530,7 @@
+ 
+ &gpu {
+ 	mali-supply = <&vdd_logic>;
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &i2c0 {
+@@ -564,7 +566,7 @@
+ 		vcc9-supply = <&vcc5v0_sys>;
+ 
+ 		pwrkey {
+-			status = "okay";
++			status = "disabled";
+ 		};
+ 
+ 		pinctrl_rk8xx: pinctrl_rk8xx {
+@@ -710,9 +712,10 @@
+ 			};
+ 
+ 			vcc_sd: LDO_REG6 {
++				regulator-always-on;
++				regulator-boot-on;
+ 				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+-				regulator-boot-on;
+ 
+ 				regulator-name = "vcc_sd";
+ 				regulator-state-mem {
+@@ -723,6 +726,7 @@
+ 			};
+ 
+ 			vcc2v8_dvp: LDO_REG7 {
++				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <2800000>;
+ 				regulator-max-microvolt = <2800000>;
+@@ -735,6 +739,7 @@
+ 			};
+ 
+ 			vcc1v8_dvp: LDO_REG8 {
++				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <1800000>;
+@@ -747,6 +752,7 @@
+ 			};
+ 
+ 			vdd1v5_dvp: LDO_REG9 {
++				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <1500000>;
+ 				regulator-max-microvolt = <1500000>;
+@@ -777,6 +783,7 @@
+ 			};
+ 
+ 			vcc3v3_lcd: SWITCH_REG2 {
++				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-name = "vcc3v3_lcd";
+ 			};
+@@ -791,7 +798,7 @@
+ 			pinctrl-0 = <&i2s1_2ch_mclk>;
+ 			hp-volume = <20>;
+ 			spk-volume = <3>;
+-			status = "okay";
++			status = "disabled";
+ 		};
+ 	};
+ };
+@@ -799,12 +806,12 @@
+ &i2c1 {
+ 	status = "okay";
+ 
+-	gt1x: gt1x@14 {
+-		compatible = "goodix,gt1x";
+-		reg = <0x14>;
+-		power-supply = <&vcc3v3_lcd>;
+-		goodix,rst-gpio = <&gpio3 RK_PB5 GPIO_ACTIVE_HIGH>;
+-		goodix,irq-gpio = <&gpio0 RK_PA5 IRQ_TYPE_LEVEL_LOW>;
++	mcp7940@6f {
++		compatible = "microchip,mcp7941x";
++		address-cells = <1>;
++		size-cells = <0>;
++		reg = <0x6f>;
++		status = "okay";
+ 	};
+ };
+ 
+@@ -814,34 +821,12 @@
+ 	clock-frequency = <100000>;
+ 
+ 	/* These are relatively safe rise/fall times; TODO: measure */
+-	i2c-scl-falling-time-ns = <50>;
+-	i2c-scl-rising-time-ns = <300>;
+-
+-	ov5695: ov5695@36 {
+-		compatible = "ovti,ov5695";
+-		reg = <0x36>;
+-		clocks = <&cru SCLK_CIF_OUT>;
+-		clock-names = "xvclk";
+-
+-		avdd-supply = <&vcc2v8_dvp>;
+-		dovdd-supply = <&vcc1v8_dvp>;
+-		dvdd-supply = <&vdd1v5_dvp>;
+-
+-		/*reset-gpios = <&gpio2 14 GPIO_ACTIVE_HIGH>;*/
+-		pwdn-gpios = <&gpio2 14 GPIO_ACTIVE_HIGH>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&cif_clkout_m0>;
+-		port {
+-			ucam_out: endpoint {
+-				remote-endpoint = <&mipi_in_ucam>;
+-				data-lanes = <1 2>;
+-			};
+-		};
+-	};
++	//i2c-scl-falling-time-ns = <50>;
++	//i2c-scl-rising-time-ns = <300>;
+ };
+ 
+ &i2s1_2ch {
+-	status = "okay";
++	status = "disabled";
+ 	#sound-dai-cells = <0>;
+ };
+ 
+@@ -856,11 +841,11 @@
+ };
+ 
+ &isp_mmu {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &mipi_dphy_rx0 {
+-	status = "okay";
++	status = "disabled";
+ 
+ 	ports {
+ 		#address-cells = <1>;
+@@ -873,7 +858,7 @@
+ 
+ 			mipi_in_ucam: endpoint@1 {
+ 				reg = <1>;
+-				remote-endpoint = <&ucam_out>;
++				//remote-endpoint = <&ucam_out>;
+ 				data-lanes = <1 2>;
+ 			};
+ 		};
+@@ -892,7 +877,7 @@
+ };
+ 
+ &nandc0 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &pmu_io_domains {
+@@ -903,15 +888,15 @@
+ };
+ 
+ &pwm1 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &rk_rga {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &rkisp1 {
+-	status = "okay";
++	status = "disabled";
+ 
+ 	port {
+ 		#address-cells = <1>;
+@@ -925,12 +910,12 @@
+ };
+ 
+ &rockchip_suspend {
+-	status = "okay";
++	status = "disabled";
+ 	rockchip,sleep-debug-en = <1>;
+ };
+ 
+ &saradc {
+-	status = "okay";
++	status = "disabled";
+ 	vref-supply = <&vcc1v8_soc>;
+ };
+ 
+@@ -948,7 +933,7 @@
+ 	sd-uhs-sdr104;
+ 	vqmmc-supply = <&vccio_sd>;
+ 	vmmc-supply = <&vcc_sd>;
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &sdio {
+@@ -967,7 +952,13 @@
+ 	pinctrl-names = "gpio", "otpout";
+ 	pinctrl-0 = <&tsadc_otp_gpio>;
+ 	pinctrl-1 = <&tsadc_otp_out>;
+-	status = "okay";
++	status = "disabled";
++};
++
++&uart0 {
++    pinctrl-names = "default";
++    pinctrl-0 = <&uart0_xfer>;
++    status = "okay";
+ };
+ 
+ &uart1 {
+@@ -976,6 +967,32 @@
+ 	status = "okay";
+ };
+ 
++&uart3 {
++    pinctrl-names = "default";
++    pinctrl-0 = <&uart3m0_xfer>;
++    status = "okay";
++};
++
++&uart4 {
++    pinctrl-names = "default";
++    pinctrl-0 = <&uart4_xfer>;
++    status = "okay";
++};
++
++&uart5 {
++    pinctrl-names = "default";
++	pinctrl-0 = <&uart5_xfer>;
++    status = "okay";
++};
++
++&i2c3 {
++	status = "disabled";
++};
++
++&spi0 {
++	status = "disabled";
++};
++
+ &u2phy {
+ 	status = "okay";
+ 
+@@ -1051,7 +1068,30 @@
+ 	pmic {
+ 		pmic_int: pmic_int {
+ 			rockchip,pins =
+-				<0 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>;
++				<0 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>,
++				// DOUT
++				<1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>,
++				<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>,
++				<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_none>,
++				// SW1
++				<3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC1 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC3 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>,
++				// SW2
++				<3 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>,
++				<3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_none>,
++				// SW3
++				<1 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>,
++				<1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_none>,
++				// LED
++				<1 RK_PB4 RK_FUNC_GPIO  &pcfg_pull_up>;
+ 		};
+ 
+ 		soc_slppin_gpio: soc_slppin_gpio {
+diff -urN a/arch/arm64/boot/dts/rockchip/rk3358-linux.dtsi b/arch/arm64/boot/dts/rockchip/rk3358-linux.dtsi
+--- a/arch/arm64/boot/dts/rockchip/rk3358-linux.dtsi	2023-11-22 10:44:14.080893582 +0900
++++ b/arch/arm64/boot/dts/rockchip/rk3358-linux.dtsi	2023-11-22 10:44:24.316782231 +0900
+@@ -37,9 +37,9 @@
+ };
+ 
+ &rng {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &video_phy {
+-	status = "okay";
++	status = "disabled";
+ };
+diff -urN a/arch/arm64/configs/px30_linux_defconfig b/arch/arm64/configs/px30_linux_defconfig
+--- a/arch/arm64/configs/px30_linux_defconfig	2023-11-22 10:44:14.084893539 +0900
++++ b/arch/arm64/configs/px30_linux_defconfig	2023-11-22 11:16:29.626590985 +0900
+@@ -315,7 +315,7 @@
+ CONFIG_LEDS_GPIO=y
+ CONFIG_LEDS_IS31FL32XX=y
+ CONFIG_RTC_CLASS=y
+-CONFIG_RTC_DRV_RK808=y
++CONFIG_RTC_DRV_DS1307=y
+ CONFIG_DMADEVICES=y
+ CONFIG_PL330_DMA=y
+ CONFIG_STAGING=y
