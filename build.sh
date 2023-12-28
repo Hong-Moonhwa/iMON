@@ -31,6 +31,7 @@ fi
 
 export RS232_MQ=no
 export RNDIS_MQ=yes
+export SUPPORT_ESCALATOR=no
 
 if [ $# = 0 ]; then
 	if [ ! -d "$ROOTFS_DIR/rootfs" ]; then
